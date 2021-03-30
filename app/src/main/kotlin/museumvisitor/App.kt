@@ -11,25 +11,34 @@ class App(inputStream: InputStream) {
     private val visitorStateChangeListener = VisitorStateChangeListener()
 
     private val museumVisitor = MuseumVisitor(
-        Table(5, 5), ParserStrategy(), listOf<Command>(Report(), Place(), Move(), Right(), Left()))
+        Museum(5, 5), ParserStrategy(), listOf(Report(), Place(), Move(), Right(), Left(), Leave()))
         .apply { listeners.add(visitorStateChangeListener) }
 
     fun commandLoop() {
-        println("Welcome to Museum Visitor, you can place me on a table and move me around:\n place x,y,facing <north/south/east/west> or move or left or right or report\nplace 0,0,north ")
+        println("Welcome to Museum Visitor,\n you can place me in the museum and move me around\n" +
+                " E.g. Command:\n place x,y,facing <north/south/east/west>\n" +
+                " or 'move' forward or turn 'left' or 'right' or report location\nplace 0,0,north\n" +
+                "To Leave the museum type 'Q'\n")
         try {
             while (input.hasNextLine()) {
-                museumVisitor.action(input.nextLine())
+                val command = museumVisitor.action(input.nextLine().trim());
+                if (command?.command == Commands.QUIT){
+                    break;
+                }
 
                 println(visitorStateChangeListener.output)
             }
-        } finally {
+        } catch (e: ExitException){
+            println("exiting on command")
+        }
+        finally {
             println("exiting!")
         }
     }
 
 }
 
-fun main(args: Array<String>) {
+fun main() {
     val app = App(System.`in`)
 
     app.commandLoop()

@@ -1,9 +1,10 @@
 package museumvisitor
 
-enum class Commands(val l: Char) {
+enum class Commands(val shortcut: Char) {
     LEFT('L'),
     RIGHT('R'),
     MOVE('M'),
     PLACE('P'),
-    REPORT('R')
+    REPORT('R'),
+    QUIT('Q')
 }

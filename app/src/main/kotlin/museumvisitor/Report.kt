@@ -1,9 +1,6 @@
 package museumvisitor
 
-class Report : Command() {
-
-    override val commandName: String
-        get() = Commands.REPORT.name
+class Report : Command(Commands.REPORT) {
 
     override fun execute(museumVisitor: MuseumVisitor): String {
         checkIfPlaced(museumVisitor)

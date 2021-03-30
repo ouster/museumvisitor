@@ -1,7 +1,6 @@
 package museumvisitor
 
-abstract class Command {
-    abstract val commandName: String
+abstract class Command(val command: Commands) {
 
     open fun execute(museumVisitor: MuseumVisitor): String = "not implemented"
 

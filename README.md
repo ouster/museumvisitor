@@ -32,6 +32,9 @@ or
 
 ```
 ./gradlew run
+
+./gradlew run < cmds.txt
+
 ```
 
 ## Museum Visitor instructions
@@ -41,12 +44,12 @@ PLACE X,Y,F
     LEFT
     RIGHT
     REPORT
-PLACE will put the visitor on the table in position X,Y and facing NORTH, SOUTH, EAST or WEST. 
+PLACE will put the visitor on the Museum in position X,Y and facing NORTH, SOUTH, EAST or WEST. 
 
 The origin (0,0) can be considered to be the SOUTH WEST most corner. 
 
-It is required that the first command to the visitor is a PLACE command, after that, any sequence of commands may be issued, in any order, 
-including another PLACE command. 
+It is required that the first command to the visitor is a PLACE command, after that, any sequence of commands may be issued,
+in any order, including another PLACE command. 
 
 The application will discard all commands in the sequence until a valid PLACE command has been executed.
 MOVE will move the visitor one unit forward in the direction it is currently facing.

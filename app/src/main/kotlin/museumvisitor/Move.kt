@@ -2,10 +2,7 @@ package museumvisitor
 
 import java.lang.UnsupportedOperationException
 
-class Move() : Command() {
-
-    override val commandName: String
-        get() = Commands.MOVE.name
+class Move() : Command(Commands.MOVE) {
 
     override fun execute(museumVisitor: MuseumVisitor): String {
 
@@ -17,7 +14,7 @@ class Move() : Command() {
 
         when (museumVisitor.position?.facing) {
             Facing.NORTH -> {
-                if (deltaY + 1 < museumVisitor.table.rows) {
+                if (deltaY + 1 < museumVisitor.museum.rows) {
                     deltaY++
                     noDanger = true
                 }
@@ -29,7 +26,7 @@ class Move() : Command() {
                 }
             }
             Facing.EAST -> {
-                if (deltaX + 1 < museumVisitor.table.rows) {
+                if (deltaX + 1 < museumVisitor.museum.rows) {
                     deltaX++
                     noDanger = true
                 }

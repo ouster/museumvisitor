@@ -2,21 +2,22 @@ package museumvisitor
 
 import kotlin.properties.Delegates
 
-class MuseumVisitor(val table: Table, private val parserStrategy: ParserStrategy, private val commands: List<Command>) {
+class MuseumVisitor(val museum: Museum, private val parserStrategy: ParserStrategy, private val commands: List<Command>) {
 
     var listeners = mutableListOf<VisitorStateChangeListener>()
 
-    var result: String by Delegates.observable<String>("No action") { _, _, newValue ->
+    var result: String by Delegates.observable("No action") { _, _, newValue ->
         this.listeners.forEach { it.onResult(newValue) }
     }
 
     var position: Position? = null
 
-    fun action(input: String) {
+    fun action(input: String): Command? {
+        var command: Command? = null
         result = try {
-            val command = parserStrategy.parse(input)
+            command = parserStrategy.parse(input)
 
-            if (commands.any { it.commandName == command.commandName }) {
+            if (commands.any { it.command == command.command }) {
                 try {
                     command.execute(this)
                 } catch (e: NotPlacedException) {
@@ -30,6 +31,7 @@ class MuseumVisitor(val table: Table, private val parserStrategy: ParserStrategy
         } catch(e: DangerException) {
             "Cannot proceed"
         }
+        return command
     }
 
 }

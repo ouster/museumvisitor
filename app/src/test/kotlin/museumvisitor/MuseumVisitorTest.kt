@@ -12,7 +12,7 @@ class MuseumVisitorTest {
     private val visitorStateChangeListener = VisitorStateChangeListener()
 
     fun createVisitor(rows: Int, cols: Int) = MuseumVisitor(
-            Table(rows, cols), ParserStrategy(), listOf<Command>(Report(), Place(), Move(), Left(), Right()))
+            Museum(rows, cols), ParserStrategy(), listOf(Report(), Place(), Move(), Left(), Right()))
             .apply { listeners.add(visitorStateChangeListener) }
 
 
@@ -43,11 +43,11 @@ class MuseumVisitorTest {
     }
 
     @Test
-    fun `test Museum Vistor is ok on a smaller table`() {
+    fun `test Museum Vistor is ok in a smaller Museum`() {
         val museumVistor = createVisitor(1,1)
 
         museumVistor.action("place 0,0,north")
-        assertEquals("Museum Vistor placed at: 0, 0, facing: NORTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor placed at: 0, 0, facing: NORTH", visitorStateChangeListener.output)
 
         museumVistor.action("move")
         assertEquals("Cannot proceed", visitorStateChangeListener.output)
@@ -78,7 +78,7 @@ class MuseumVisitorTest {
         val museumVistor = createVisitor(5,5)
 
         museumVistor.action("place 0,0,north")
-        assertEquals("Musuem Visitor placed at: 0, 0, facing: NORTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor placed at: 0, 0, facing: NORTH", visitorStateChangeListener.output)
     }
 
     @Test
@@ -86,10 +86,10 @@ class MuseumVisitorTest {
         val museumVistor = createVisitor(5,5)
 
         museumVistor.action("place 0,0,north")
-        assertEquals("Musuem Visitor placed at: 0, 0, facing: NORTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor placed at: 0, 0, facing: NORTH", visitorStateChangeListener.output)
 
         museumVistor.action("place 4,4,south")
-        assertEquals("Musuem Visitor placed at: 4, 4, facing: SOUTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor placed at: 4, 4, facing: SOUTH", visitorStateChangeListener.output)
     }
 
     @Test
@@ -97,10 +97,10 @@ class MuseumVisitorTest {
         val museumVistor = createVisitor(5,5)
 
         museumVistor.action("place 0,0,north")
-        assertEquals("Musuem Visitor placed at: 0, 0, facing: NORTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor placed at: 0, 0, facing: NORTH", visitorStateChangeListener.output)
 
         museumVistor.action("report")
-        assertEquals("Musuem Visitor is at (0,0) Facing: NORTH", visitorStateChangeListener.output)    }
+        assertEquals("Museum Visitor is at (0,0) Facing: NORTH", visitorStateChangeListener.output)    }
 
     @Test
     fun `test Museum Vistor was not placed in danger`() {
@@ -115,19 +115,19 @@ class MuseumVisitorTest {
         val museumVisitor = createVisitor(5,5)
 
         museumVisitor.action("place 0,0,north")
-        assertEquals("Musuem Visitor placed at: 0, 0, facing: NORTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor placed at: 0, 0, facing: NORTH", visitorStateChangeListener.output)
 
         museumVisitor.action("left")
-        assertEquals("Musuem Visitor turned to (0,0) Facing: WEST", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor turned to (0,0) Facing: WEST", visitorStateChangeListener.output)
 
         museumVisitor.action("left")
-        assertEquals("Musuem Visitor turned to (0,0) Facing: SOUTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor turned to (0,0) Facing: SOUTH", visitorStateChangeListener.output)
 
         museumVisitor.action("left")
-        assertEquals("Musuem Visitor turned to (0,0) Facing: EAST", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor turned to (0,0) Facing: EAST", visitorStateChangeListener.output)
 
         museumVisitor.action("left")
-        assertEquals("Musuem Visitor turned to (0,0) Facing: NORTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor turned to (0,0) Facing: NORTH", visitorStateChangeListener.output)
     }
 
     @Test
@@ -135,80 +135,80 @@ class MuseumVisitorTest {
         val museumVisitor = createVisitor(5,5)
 
         museumVisitor.action("place 4,4,north")
-        assertEquals("Musuem Visitor placed at: 4, 4, facing: NORTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor placed at: 4, 4, facing: NORTH", visitorStateChangeListener.output)
 
         museumVisitor.action("right")
-        assertEquals("Musuem Visitor turned to (4,4) Facing: EAST", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor turned to (4,4) Facing: EAST", visitorStateChangeListener.output)
 
         museumVisitor.action("right")
-        assertEquals("Musuem Visitor turned to (4,4) Facing: SOUTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor turned to (4,4) Facing: SOUTH", visitorStateChangeListener.output)
 
         museumVisitor.action("right")
-        assertEquals("Musuem Visitor turned to (4,4) Facing: WEST", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor turned to (4,4) Facing: WEST", visitorStateChangeListener.output)
 
         museumVisitor.action("right")
-        assertEquals("Musuem Visitor turned to (4,4) Facing: NORTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor turned to (4,4) Facing: NORTH", visitorStateChangeListener.output)
     }
 
     @Test
-    fun `test Musuem Visitor was placed and able to move north safely`() {
+    fun `test Museum Visitor was placed and able to move north safely`() {
         val museumVisitor = createVisitor(5,5)
         museumVisitor.action("place 2,2,north")
-        assertEquals("Musuem Visitor placed at: 2, 2, facing: NORTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor placed at: 2, 2, facing: NORTH", visitorStateChangeListener.output)
 
         museumVisitor.action("move")
-        assertEquals("Musuem Visitor moved to (2,3) Facing: NORTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor moved to (2,3) Facing: NORTH", visitorStateChangeListener.output)
 
         museumVisitor.action("move")
-        assertEquals("Musuem Visitor moved to (2,4) Facing: NORTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor moved to (2,4) Facing: NORTH", visitorStateChangeListener.output)
 
         museumVisitor.action("move")
         assertEquals("Cannot proceed", visitorStateChangeListener.output)
     }
 
     @Test
-    fun `test Musuem Visitor was placed and able to move south safely`() {
+    fun `test Museum Visitor was placed and able to move south safely`() {
         val museumVisitor = createVisitor(5,5)
         museumVisitor.action("place 2,2,south")
-        assertEquals("Musuem Visitor placed at: 2, 2, facing: SOUTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor placed at: 2, 2, facing: SOUTH", visitorStateChangeListener.output)
 
         museumVisitor.action("move")
-        assertEquals("Musuem Visitor moved to (2,1) Facing: SOUTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor moved to (2,1) Facing: SOUTH", visitorStateChangeListener.output)
 
         museumVisitor.action("move")
-        assertEquals("Musuem Visitor moved to (2,0) Facing: SOUTH", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor moved to (2,0) Facing: SOUTH", visitorStateChangeListener.output)
 
         museumVisitor.action("move")
         assertEquals("Cannot proceed", visitorStateChangeListener.output)
     }
 
     @Test
-    fun `test Musuem Visitor was placed and able to move west safely`() {
+    fun `test Museum Visitor was placed and able to move west safely`() {
         val museumVistor = createVisitor(5,5)
         museumVistor.action("place 2,2,west")
-        assertEquals("Musuem Visitor placed at: 2, 2, facing: WEST", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor placed at: 2, 2, facing: WEST", visitorStateChangeListener.output)
 
         museumVistor.action("move")
-        assertEquals("Musuem Visitor moved to (1,2) Facing: WEST", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor moved to (1,2) Facing: WEST", visitorStateChangeListener.output)
 
         museumVistor.action("move")
-        assertEquals("Musuem Visitor moved to (0,2) Facing: WEST", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor moved to (0,2) Facing: WEST", visitorStateChangeListener.output)
 
         museumVistor.action("move")
         assertEquals("Cannot proceed", visitorStateChangeListener.output)
     }
 
     @Test
-    fun `test Musuem Visitor was placed and able to move east safely`() {
+    fun `test Museum Visitor was placed and able to move east safely`() {
         val museumVistor = createVisitor(5,5)
         museumVistor.action("place 2,2,east")
-        assertEquals("Musuem Visitor placed at: 2, 2, facing: EAST", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor placed at: 2, 2, facing: EAST", visitorStateChangeListener.output)
 
         museumVistor.action("move")
-        assertEquals("Musuem Visitor moved to (3,2) Facing: EAST", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor moved to (3,2) Facing: EAST", visitorStateChangeListener.output)
 
         museumVistor.action("move")
-        assertEquals("Musuem Visitor moved to (4,2) Facing: EAST", visitorStateChangeListener.output)
+        assertEquals("Museum Visitor moved to (4,2) Facing: EAST", visitorStateChangeListener.output)
 
         museumVistor.action("move")
         assertEquals("Cannot proceed", visitorStateChangeListener.output)

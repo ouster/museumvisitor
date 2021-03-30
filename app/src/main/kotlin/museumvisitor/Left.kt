@@ -1,9 +1,6 @@
 package museumvisitor
 
-class Left() : Command() {
-
-    override val commandName: String
-        get() = Commands.LEFT.name
+class Left() : Command(Commands.LEFT) {
 
     override fun execute(museumVisitor: MuseumVisitor): String {
 

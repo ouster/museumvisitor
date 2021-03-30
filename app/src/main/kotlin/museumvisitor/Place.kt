@@ -1,15 +1,12 @@
 package museumvisitor
 
-class Place(private val x: Int = 0, private val y: Int = 0, private val f: Facing = Facing.NORTH) : Command() {
-
-    override val commandName: String
-        get() = Commands.PLACE.name
+class Place(private val x: Int = 0, private val y: Int = 0, private val f: Facing = Facing.NORTH) : Command(Commands.PLACE) {
 
     override fun execute(museumVisitor: MuseumVisitor): String {
 
-        if (x >= museumVisitor.table.columns ||
+        if (x >= museumVisitor.museum.columns ||
                 x < 0 ||
-                y >= museumVisitor.table.rows ||
+                y >= museumVisitor.museum.rows ||
                 y < 0) {
             throw DangerException()
         }
